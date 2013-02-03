@@ -6,7 +6,7 @@ $(document).ready(function(){
 				$("#bodyColumn").html(markdown.toHTML(data));
 			}
 		});
-		#("#leftColumn li>a").each(function(){
+		#("#leftColumn a").each(function(i){
 			if(this.href && this.href.indexOf("md="+url)>-1){
 				$(this).parent().addClass("active");
 			}
