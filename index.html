@@ -75,14 +75,17 @@
 </body>
 	<script type="text/javascript">
 		$(document).ready(function(){//http://tylerchen.github.com/Blogs/test.md
-			$.ajax({ 
+		$.get("test.md", function(data){
+			document.getElementById("bodyColumn").innerHTML=markdown.toHTML(data);
+		});
+			/*$.ajax({ 
                     type: "GET", 
                     datatype: "JSONP",
                     url: getURLParameter("md")+"?jsoncallback=?",
                     success: function(data){
 						document.getElementById("bodyColumn").innerHTML=markdown.toHTML(value);
                     }
-           });
+           });*/
 		});
 		function getURLParameter(name) {
 			return decodeURI(
