@@ -3,14 +3,18 @@ $(document).ready(function(){
 	if(url){
 		$.get(url, function(data){
 			if(data){
-				$("#bodyColumn").html(markdown.toHTML(data));
+				try{
+					$("#bodyColumn").html(markdown.toHTML(data));
+				}catch(err){}
 			}
 		});
-		#("#leftColumn a").each(function(i){
-			if(this.href && this.href.indexOf("md="+url)>-1){
-				$(this).parent().addClass("active");
-			}
-		});
+		try{
+			$("#leftColumn a").each(function(i){
+				if(this.href && this.href.indexOf("md="+url)>-1){
+					$(this).parent().addClass("active");
+				}
+			});
+		}catch(err){}
 	}
 });
 function getURLParameter(name) {
