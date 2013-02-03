@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="./css/bootstrap.css" />
 	<script type="text/javascript" src="./js/markdown.js"></script>
 	<script type="text/javascript" src="./js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="./js/main.js"></script>
 </head>
 <body class="topBarDisabled">
 	<div class="container-fluid">
@@ -68,21 +69,9 @@
 	<footer>
 		<div class="container-fluid">
 			<center>
-				<div class="row span12">Copyright &copy; 2010-2013<a href="http://www.mybatis.org/">MyBatis.org</a>.All Rights Reserved.</div>
+				<div class="row span12">Copyright &copy; 2010-2013. All Rights Reserved.</div>
 			</center>
 		</div>
 	</footer>
 </body>
-	<script type="text/javascript">
-		$(document).ready(function(){//http://tylerchen.github.com/Blogs/test.md
-			$.get(getURLParameter("md"), function(data){
-				document.getElementById("bodyColumn").innerHTML=markdown.toHTML(data);
-			});
-		});
-		function getURLParameter(name) {
-			return decodeURI(
-				(RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-			);
-		}
-    </script>
 </html>
