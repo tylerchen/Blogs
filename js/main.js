@@ -1,7 +1,12 @@
 $(document).ready(function(){
-	$.get(getURLParameter("md"), function(data){
-		if(data){$("#bodyColumn").html(markdown.toHTML(data));}
-	});
+	var url = getURLParameter("md");
+	if(url){
+		$.get(url, function(data){
+			if(data){
+				$("#bodyColumn").html(markdown.toHTML(data));
+			}
+		});
+	}
 });
 function getURLParameter(name) {
 	return decodeURI(
