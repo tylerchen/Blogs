@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	var url = getURLParameter("md");
+	alert(url);
 	if(url){
 		$.get(url, function(data){
 			if(data){
