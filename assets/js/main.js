@@ -10,14 +10,17 @@ $(document).ready(function() {
 		}
 	}
 	
-	$.get(url, function(data) {
-		if (data) {
-			try {
-				$("#bodyColumn").html(markdown.toHTML(data));
-			} catch (err) {
+	try {
+		$.get(url, function(data) {
+			if (data) {
+				try {
+					$("#bodyColumn").html(markdown.toHTML(data));
+				} catch (err) {
+				}
 			}
-		}
-	});
+		});
+	} catch (err) {
+	}
 	
 	try {
 		$("#leftColumn a").each(function(i) {
