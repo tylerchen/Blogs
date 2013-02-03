@@ -1,25 +1,34 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	var url = getURLParameter("md");
-	alert(url);
-	if(url){
-		$.get(url, function(data){
-			if(data){
-				try{
-					$("#bodyColumn").html(markdown.toHTML(data));
-				}catch(err){}
+	{
+		if (url) {
+			if (url == "null") {
+				url = "readme.md";
+			}
+		} else {
+			url = "readme.md";
+		}
+	}
+	
+	$.get(url, function(data) {
+		if (data) {
+			try {
+				$("#bodyColumn").html(markdown.toHTML(data));
+			} catch (err) {
+			}
+		}
+	});
+	
+	try {
+		$("#leftColumn a").each(function(i) {
+			if (this.href && this.href.indexOf("md=" + url) > -1) {
+				$(this).parent().addClass("active");
 			}
 		});
-		try{
-			$("#leftColumn a").each(function(i){
-				if(this.href && this.href.indexOf("md="+url)>-1){
-					$(this).parent().addClass("active");
-				}
-			});
-		}catch(err){}
+	} catch (err) {
 	}
 });
 function getURLParameter(name) {
-	return decodeURI(
-		(RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-	);
+	return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [
+			, null ])[1]);
 }
