@@ -6,6 +6,11 @@ $(document).ready(function(){
 				$("#bodyColumn").html(markdown.toHTML(data));
 			}
 		});
+		#("#leftColumn").find("a").each(function(){
+			if(this.href && this.href.indexOf("md="+url)>-1){
+				$(this).parent().addClass("active");
+			}
+		});
 	}
 });
 function getURLParameter(name) {
