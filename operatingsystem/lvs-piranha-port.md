@@ -105,26 +105,26 @@
 1. 先下载源码： 
 
 
-    piranha-0.8.4-16.el5.src.rpm
+        piranha-0.8.4-16.el5.src.rpm
 
 
 2. 然后在RHEL系统中安装该源码： 
 
 
-    rpm -ivh piranha-0.8.4-16.el5.src.rpm
+        rpm -ivh piranha-0.8.4-16.el5.src.rpm
 
 
 3. 去到打补丁目录，运行命令进行打补丁： 
 
 
-    cd /usr/src/redhat/SPECS
-    rpmbuild -bp piranha.spec
+        cd /usr/src/redhat/SPECS
+        rpmbuild -bp piranha.spec
 
 
 4. 然后去到打完补丁的目录
 
 
-    cd /usr/src/redhat/BUILD/piranha
+        cd /usr/src/redhat/BUILD/piranha
 
 
 经过一翻的查找，找到ipvs_exec.c文件中的runCommand和shutdownDev这两个函数，其中shutdownDev就是RS服务器挂掉(心跳脚本执行不通过)时要执行的函数，我在runCommand函数的开头写了些调试信息，把命令和参数都打印出来，代码如下：
