@@ -1,7 +1,7 @@
 Hornetq 与 JBoss4集成
 ====
 
-* 下载Hornetq，URL：http://www.jboss.org/hornetq/downloads这里使用2.2.5.Final 
+* 下载Hornetq，URL：[http://www.jboss.org/hornetq/downloads](http://www.jboss.org/hornetq/downloads)这里使用2.2.5.Final 
 
 * 解压Hornetq 
 
@@ -48,7 +48,7 @@ Hornetq 与 JBoss4集成
         </config-property>  
 
 
-改为： 
+    改为： 
 
 
         <config-property>  
@@ -79,4 +79,5 @@ Hornetq 与 JBoss4集成
 
 
         WARN  [org.hornetq.core.cluster.impl.DiscoveryGroupImpl]  There are more than one servers on the network broadcasting the same  node id. You will see this message exactly once (per node) if a node is  restarted, in which case it can be safely ignored. But if it is logged  continuously it means you really do have more than one node on the same  network active concurrently with the same node id. This could occur if  you have a backup node active at the same time as its live node.  
+
 
