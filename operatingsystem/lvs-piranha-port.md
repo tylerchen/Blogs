@@ -130,13 +130,13 @@
 经过一翻的查找，找到ipvs_exec.c文件中的runCommand和shutdownDev这两个函数，其中shutdownDev就是RS服务器挂掉(心跳脚本执行不通过)时要执行的函数，我在runCommand函数的开头写了些调试信息，把命令和参数都打印出来，代码如下：
 
 
-runCommand (char *cmd, int flags, char **argv, int log_flag)
-{
-  int i=0;
-  for(i=0; argv[i] != NULL; i++){
-    piranha_log (flags, (char *) "tyler println:%s", argv[i]);
-  }
-//......
+    runCommand (char *cmd, int flags, char **argv, int log_flag)
+    {
+      int i=0;
+      for(i=0; argv[i] != NULL; i++){
+        piranha_log (flags, (char *) "tyler println:%s", argv[i]);
+      }
+    //......
 
 
 然后执行make，把编译出来的nanny程序替换/usr/sbin/nanny，启动pulse，查看系统日志，当RS服务器挂掉时日志如下(可能与原来的有点差别)： 
