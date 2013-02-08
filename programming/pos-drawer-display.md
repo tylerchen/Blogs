@@ -19,9 +19,9 @@
 
 目前支持开钱箱的顾客显示屏只有DIY-POS的显示屏。其指令有两条： 
 
+第一条：STX M适用于PD-LED12N、PD-LED8、PD-LED8N、PD-VFD220、PD-VFD215C、PD-VFD215CV 
 
-    第一条：STX M适用于PD-LED12N、PD-LED8、PD-LED8N、PD-VFD220、PD-VFD215C、PD-VFD215CV 
-    
+
     ACSII码 格式：STX   M 
     
     十进制    格式：[002][077] 
