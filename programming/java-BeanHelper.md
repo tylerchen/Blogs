@@ -17,6 +17,6 @@
 
 5. 如果属性也是一种复杂类型，则不支持
 
-6. 支持属性名称一样，但类型不一样的，如java.sql.Date与java.util.Date，String与Boolean，String与Number之间的转换
+6. 支持属性名称一样，但类型不一样的，如java.sql.Date与java.util.Date，String与Date，String与Boolean，String与Number之间的转换
 
 附件下载：[BeanHelper.java](BeanHelper.java?raw=true)
