@@ -19,3 +19,4 @@
 
 6. 支持属性名称一样，但类型不一样的，如java.sql.Date与java.util.Date，String与Boolean，String与Number之间的转换
 
+附件下载：[BeanHelper.java](BeanHelper.java?raw=true)
