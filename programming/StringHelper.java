@@ -32,7 +32,7 @@ public final class StringHelper {
 	private StringHelper() {
 	}
 
-	public static String paconcat(String... strs) {
+	public static String concat(String... strs) {
 		if (strs == null || strs.length == 0) {
 			return "";
 		}
