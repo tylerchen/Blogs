@@ -8,6 +8,7 @@ Fuse ESB EAP 7 使用总结
     修改/etc/jetty.xml中的default端口，如：
 
         <Property name="jetty.port" default="3131"/>
+        <Set name="confidentialPort">8443</Set>
 
     修改/etc/system.properties中的配置，如：
 
