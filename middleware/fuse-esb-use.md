@@ -30,3 +30,14 @@ Fuse ESB EAP 7 使用总结
     修改/etc/system.properties中的配置，如：
 
         activemq.jmx.url=service:jmx:rmi:///jndi/rmi://localhost:3099/karaf-${karaf.name}
+
+#### 去除ActiveMQ登录验证
+
+1. 如果默认没有配置ActiveMQ的登录验证访问MQ的时候会抛出异常
+
+        javax.jms.JMSException: User name [null] or password is invalid.
+        
+2. 修改/etc/activemq.xml，注释Jass验证
+
+        <!jaasAuthenticationPlugin configuration="karaf" />
+        
