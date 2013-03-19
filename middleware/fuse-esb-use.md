@@ -41,3 +41,21 @@ Fuse ESB EAP 7 使用总结
 
         <!jaasAuthenticationPlugin configuration="karaf" />
         
+#### ActiveMQ集群
+
+1. 添加静态的集群IP
+
+    修改/etc/activemq.xml，对于每个Fuse ESB都添加networkConnectors，可以指定多个IP：
+    
+        <networkConnectors>
+            <networkConnector uri="static://(tcp://localhost:51616,tcp://localhost:41616)" />
+    	</networkConnectors>
+        
+2. 添加广播地址
+
+    修改/etc/activemq.xml，对于每个Fuse ESB都discoveryUri：
+
+        <transportConnectors>
+            <transportConnector name="openwire" uri="tcp://0.0.0.0:0?maximumConnections=1000" discoveryUri="multicast://default"/>
+        </transportConnectors>
+
