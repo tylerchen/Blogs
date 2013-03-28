@@ -1,4 +1,4 @@
 Blogs
 =====
 
-Blogs of TylerChen
+[Blogs of TylerChen](http://tylerchen.github.com/Blogs/)
