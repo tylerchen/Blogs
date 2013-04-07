@@ -11,7 +11,9 @@ JBOSS as7/eap6 相关
     </system-properties>
 
 
-### 添加HTTPS支持，生成的证书alias=jboss，password=创建证书的密码，certificate-key-file=证书路径
+### 添加HTTPS支持
+
+生成的证书alias=jboss，password=创建证书的密码，certificate-key-file=证书路径
 
     <connector name="http" protocol="HTTP/1.1" scheme="http" socket-binding="http"/>
     <connector name="https" protocol="HTTP/1.1" socket-binding="https" scheme="https" secure="true">
