@@ -1,4 +1,4 @@
-JBOSS EAP 4.3 Usefule Things
+JBOSS EAP 4.3 About
 ===========
 
 ### Remove JBoss Messaging
