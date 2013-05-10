@@ -22,3 +22,19 @@ For default instance:
                   value="org.jboss.jms.server.recovery.MessagingXAResourceRecovery;java:/DefaultJMSProvider"/>
         to    : <!--property name="com.arjuna.ats.jta.recovery.XAResourceRecovery.JBMESSAGING1"
                   value="org.jboss.jms.server.recovery.MessagingXAResourceRecovery;java:/DefaultJMSProvider"/ -->
+
+### Remove Hibernate Lib
+
+Sometimes the jboss hibernate lib conflict will cause the some unknown exceptions...
+
+Just remove those libs will solve the problem.
+
+        ejb3-persistence.jar
+        hibernate3.jar
+	hibernate-annotations.jar
+	hibernate-commons-annotations.jar
+	hibernate-entitymanager.jar
+	hibernate-validator.jar
+        
+
+
