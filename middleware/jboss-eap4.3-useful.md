@@ -29,8 +29,8 @@ Sometimes the jboss hibernate lib conflict will cause the some unknown exception
 
 Just remove those libs will solve the problem.
 
-        ejb3-persistence.jar
-        hibernate3.jar
+	ejb3-persistence.jar
+	hibernate3.jar
 	hibernate-annotations.jar
 	hibernate-commons-annotations.jar
 	hibernate-entitymanager.jar
