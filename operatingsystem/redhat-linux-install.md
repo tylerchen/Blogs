@@ -69,6 +69,6 @@ Redhat Enterprise Linux Install
     
 17. 网络配置，配置IP、掩码、网关等，“ONBOOT=yes”, “NM_CONTROLLED=no”
 
-    ![](imsages/rhel-17S.jpg) 
+    ![](imsages/rhel-17.jpg) 
 
     
