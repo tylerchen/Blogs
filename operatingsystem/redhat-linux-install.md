@@ -46,7 +46,29 @@ Redhat Enterprise Linux Install
     ![](imsages/rhel-11.jpg)
 
 
-12. 选择“Languages”，勾选“Chinese Support”，把中文支持安装上
+12. 选择“Languages”，勾选“Chinese Support”，把中文支持安装上，然后直到安装完成，重启
 
     ![](imsages/rhel-12.jpg)
 
+13. 配置用户
+
+    ![](imsages/rhel-13.jpg)
+
+
+14. 完成安装
+
+    ![](imsages/rhel-14.jpg)
+
+15. 禁止“NetworkManager”，不自动管理网络
+
+    ![](imsages/rhel-15.jpg)
+  
+16. 禁止“SeLinux”，“SELINUX=disabled”，“setenforce 0”可以立即生效，省得麻烦
+
+    ![](imsages/rhel-16.jpg) 
+    
+17. 网络配置，配置IP、掩码、网关等，“ONBOOT=yes”, “NM_CONTROLLED=no”
+
+    ![](imsages/rhel-17S.jpg) 
+
+    
