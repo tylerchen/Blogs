@@ -1,7 +1,7 @@
 linux常用disk磁盘操作命令
 ==========
 
-copy from [](http://zhwj184.iteye.com/blog/1875946)
+copy from [http://zhwj184.iteye.com/blog/1875946](http://zhwj184.iteye.com/blog/1875946)
 
 
 1. 按照目录大小排序战士最前面15个目录或者文件  
