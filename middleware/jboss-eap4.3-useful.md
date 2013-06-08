@@ -233,7 +233,7 @@ The PooledInvoker MBean supports a number of attribute to configure the socket t
 		        $0 start
 		        ;;
 		  *)
-		        echo "Usage: gsmsweb {start|stop|restart}"
+		        echo "Usage: application {start|stop|restart}"
 		        exit 1
 		esac
 		
