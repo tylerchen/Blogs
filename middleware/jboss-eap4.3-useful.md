@@ -72,3 +72,171 @@ The PooledInvoker MBean supports a number of attribute to configure the socket t
 	      <attribute name="EnableTcpNoDelay">false</attribute>
 	      <depends optional-attribute-name="TransactionManagerService">jboss:service=TransactionManager</depends>
 	</mbean>
+
+
+### Add RHEL Service
+
+1. Write a service script, and copy into /etc/init.d/ director, such as jboss
+
+		vi /etc/init.d/jboss
+		chmod +x /etc/init.d/jboss
+
+2. Add to startup
+
+		chkconfig --add jboss
+		chkconfig jboss on
+
+3. Modify "jboss-eap-4.3/jboss-as/server/default/conf/props/jmx-console-users.properties" file to enable username and password
+
+		admin=admin
+
+4. The service script file, you need to modify the JBOSS_HOME, JBOSSSH, JBOSS_SHUTDOWN, JBOSS_START_USER
+
+		#! /bin/sh
+		#
+		# chkconfig: - 85 15
+		# description: JBoss for application
+		#
+		
+		#define where jboss is - this is the directory containing directories log, bin, conf etc
+		JBOSS_HOME=${JBOSS_HOME:-"/usr/local/jboss-eap-4.3/jboss-as"}
+		
+		#define the script to use to start jboss
+		JBOSSSH=${JBOSSSH:-"$JBOSS_HOME/bin/run.sh -c default -b 0.0.0.0"}
+		
+		#define what will be done with the console log
+		#JBOSS_CONSOLE=${JBOSS_CONSOLE:-"$JBOSS_HOME/bin/nohup.out"}
+		JBOSS_CONSOLE=${JBOSS_CONSOLE:-"/dev/null"}
+		
+		#define shutdown scripts
+		JBOSS_SHUTDOWN=${JBOSS_SHUTDOWN:-"-s jnp://localhost:1099 -u admin -p admin"}
+		
+		#define the startup user
+		JBOSS_START_USER=${JBOSS_START_USER:-"root"}
+		
+		
+		start(){
+		        echo "Starting jboss.."
+		# If using an SELinux system such as RHEL 4, use the command below
+		        # instead of the "su":
+		        # eval "runuser - jboss -c '/opt/jboss/current/bin/run.sh > /dev/null 2> /dev/null &'
+		        # if the 'su -l ...' command fails (the -l flag is not recognized by my su cmd) try:
+		        #   sudo -u jboss /opt/jboss/bin/run.sh > /dev/null 2> /dev/null &
+		        # sleep 5
+		        # mount -a
+			if [ `whoami` == ${JBOSS_START_USER} ]; then
+				${JBOSSSH} > ${JBOSS_CONSOLE} 2> ${JBOSS_CONSOLE} &	
+			else 
+		        	su -l ${JBOSS_START_USER} -c "${JBOSSSH} > ${JBOSS_CONSOLE} 2> ${JBOSS_CONSOLE} &"
+			fi
+		}
+		
+		stop(){
+		        echo "Stopping jboss.."
+		
+		        # If using an SELinux system such as RHEL 4, use the command below
+		        # instead of the "su":
+		        # eval "runuser - jboss -c '/opt/jboss/current/bin/shutdown.sh -S &'
+		        # if the 'su -l ...' command fails try:
+		        #   sudo -u root /opt/jboss/bin/shutdown.sh -S &
+			if [ `whoami` == ${JBOSS_START_USER} ]; then
+				${JBOSS_HOME}/bin/shutdown.sh ${JBOSS_SHUTDOWN} -S &
+			else
+				su -l ${JBOSS_START_USER} -c "${JBOSS_HOME}/bin/shutdown.sh ${JBOSS_SHUTDOWN} -S &"
+			fi
+		        sleep 60
+		        forceStop
+		}
+		
+		
+		# not use again
+		restart(){
+		        stop
+		# give stuff some time to stop before we restart
+		        #sleep 60
+		# force stop jboss if it still alive
+			 #forceStop
+		# protect against any services that can't stop before we restart (warning this kills all Java instances running as 'jboss' user)
+		        # su -l root -c 'killall java'
+		# if the 'su -l ...' command fails try:
+		        #   sudo -u root killall java
+		        start
+		}
+		
+		function procrunning() {
+		   procid=0
+		   JBOSSSCRIPT=$(echo $JBOSSSH | awk '{print $1}' | sed 's/\//\\\//g')
+		   for procid in `/sbin/pidof -x "$JBOSSSCRIPT"`; do
+		       ps -fp $procid | grep "${JBOSSSH% *}" > /dev/null && pid=$procid
+		   done
+		}
+		
+		function forceStop() {
+		    pid=0
+		    procrunning
+		    if [ $pid = '0' ]; then
+		        echo -n -e "\nNo JBossas is currently running\n"
+		        exit 1
+		    fi
+		
+		    RETVAL=1
+		
+		    # If process is still running
+		
+		    # First, try to kill it nicely
+		    for id in `ps --ppid $pid | awk '{print $1}' | grep -v "^PID$"`; do
+		       if [ -z "$SUBIT" ]; then
+		           kill -15 $id
+		       else
+		           $SUBIT "kill -15 $id"
+		       fi
+		    done
+		
+		    sleep=0
+		    while [ $sleep -lt 120 -a $RETVAL -eq 1 ]; do
+		        echo -n -e "\nwaiting for processes to stop";
+		        sleep 10
+		        sleep=`expr $sleep + 10`
+		        pid=0
+		        procrunning
+		        if [ $pid == '0' ]; then
+		            RETVAL=0
+		        fi
+		    done
+		
+		    # Still not dead... kill it
+		
+		    count=0
+		    pid=0
+		    procrunning
+		
+		    if [ $RETVAL != 0 ] ; then
+		        echo -e "\nTimeout: Shutdown command was sent, but process is still running with PID $pid"
+		        exit 1
+		    fi
+		
+		    echo
+		    exit 0
+		}
+		
+		
+		
+		case "$1" in
+		  start)
+		        start
+		        ;;
+		  stop)
+		        stop
+		        ;;
+		  restart)
+		        $0 stop
+		        $0 start
+		        ;;
+		  *)
+		        echo "Usage: gsmsweb {start|stop|restart}"
+		        exit 1
+		esac
+		
+		exit 0
+
+
