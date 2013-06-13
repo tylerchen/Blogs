@@ -38,7 +38,7 @@ Apache proxy balancer
         2) Add the "route=..." configuration to specify the route id
         3) Add the "stickysession=..." configuration to specify the stickysession model
 
-6. For the Java Servlet stickysession you can configure
+6. For the Java Servlet stickysession you can configure, Note this configure will not sticky the same session to the same server
 
         ProxySet stickysession=JSESSIONID|jsessionid lbmethod=byrequests nofailover=Off
 
