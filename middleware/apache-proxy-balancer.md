@@ -41,6 +41,8 @@ Apache proxy balancer
 6. For the Java Servlet stickysession you can configure, Note this configure will not sticky the same session to the same server
 
         ProxySet stickysession=JSESSIONID|jsessionid lbmethod=byrequests nofailover=Off
+        
+7. Note the cookies problem, if you you refresh the URL and create the new session every time, perhaps the proxy loadbalancer context binding is different as the application context, keep the same context on loadbalancer as application.
 
 
 
