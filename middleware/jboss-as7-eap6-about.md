@@ -20,3 +20,22 @@ JBOSS as7/eap6 相关
         <ssl name="https" password="changeit" certificate-key-file="../standalone/configuration/server.keystore"/>
     </connector>
 
+### Create cluster in standalone mode
+
+1. Cluster on same box
+
+        Steps:
+        1) Unzip jboss-as-7.1.1.Final.zip
+        2) Copy two "standalone" and rename to "node1" and "node2", such as:
+            /home/user/jboss-as-7.1.1.Final/node1
+            /home/user/jboss-as-7.1.1.Final/node2
+        3) Start node1 and node2:
+            ./standalone.sh -c standalone-ha.xml -b 0.0.0.0 -u 230.0.0.4 -Djboss.server.base.dir=../node1 -Djboss.node.name=node1 -Djboss.socket.binding.port-offset=100
+            ./standalone.sh -c standalone-ha.xml -b 0.0.0.0 -u 230.0.0.4 -Djboss.server.base.dir=../node2 -Djboss.node.name=node2 -Djboss.socket.binding.port-offset=200
+        4) The cluster parameters:
+            -c = is for server configuration file to be used
+            -b = is for binding address
+            -u = is for multicast address
+            -Djboss.server.base.dir = is for the path from where node is present
+            -Djboss.node.name = is for the name of the node
+            -Djboss.socket.binding.port-offset = is for the port offset on which node would be running - See more at: http://middlewaremagic.com/jboss/?p=1952#sthash.fn4TsMpv.dpuf
