@@ -56,7 +56,7 @@ copy from [http://middlewaremagic.com/jboss/?p=1952](http://middlewaremagic.com/
         
             === Add <distributable/> tag to web.xml
             
-            === Deploy [ClusterWebApp.war](ClusterWebApp.war) into  /home/user/jboss-as-7.1.1.Final/node?/deployments
+            === Deploy ClusterWebApp.war into  /home/user/jboss-as-7.1.1.Final/node?/deployments
             
 2. Cluster on different boxes
 
@@ -84,5 +84,6 @@ copy from [http://middlewaremagic.com/jboss/?p=1952](http://middlewaremagic.com/
         
             === Add <distributable/> tag to web.xml
             
-            === Deploy [ClusterWebApp.war](ClusterWebApp.war) into  /home/user/jboss-as-7.1.1.Final/node?/deployments
+            === Deploy ClusterWebApp.war into  /home/user/jboss-as-7.1.1.Final/node?/deployments
             
+[ClusterWebApp.war](ClusterWebApp.war)
