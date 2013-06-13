@@ -86,4 +86,4 @@ copy from [http://middlewaremagic.com/jboss/?p=1952](http://middlewaremagic.com/
             
             === Deploy ClusterWebApp.war into  /home/user/jboss-as-7.1.1.Final/node?/deployments
             
-[ClusterWebApp.war](ClusterWebApp.war)
+Download the cluster app file: [ClusterWebApp.war](ClusterWebApp.war)
