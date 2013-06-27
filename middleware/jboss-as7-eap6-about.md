@@ -92,6 +92,14 @@ Download the cluster app file: [ClusterWebApp.war](ClusterWebApp.war)
 
 copy from [https://community.jboss.org/thread/176251](https://community.jboss.org/thread/176251)
 
+To add a RHLE service you can following these steps bellow:
+
+        vi /etc/init.d serviceName
+        chmod +x serviceName
+        chkconfig --add serviceName
+        chkconfig serviceName on
+        service serviceName start
+
 You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_IP, UDP_IP, NODE_NAME, JBOSS_INSTALCE.
 
         #!/bin/sh
@@ -113,7 +121,7 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
         NODE_NAME=node53
         JBOSS_INSTALCE=node
         JBOSS_CONFIG=standalone-ha.xml
-        #Please specify a real IP address (such as NIC address 192.168.1.1), otherwise, the cluster won't work!!! 
+        #Please specify a real IP address (such as NIC address 192.168.1.1), IF NOT, the cluster by UDP won't work!!! 
         BINDING_IP=0.0.0.0
         UDP_IP=230.2.3.5
         JBOSS_PIDFILE="$JBOSS_HOME/$JBOSS_INSTALCE/$JBOSS_INSTALCE.pid"
