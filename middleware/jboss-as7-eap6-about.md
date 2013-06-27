@@ -110,11 +110,12 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
         JAVA_HOME=/usr/local/jdk1.6.0_37
         JBOSS_HOME=/usr/local/jboss-as-7.1.1.Final
         JBOSS_USER=root
-        JBOSS_CONFIG=standalone-ha.xml
-        BINDING_IP=0.0.0.0
-        UDP_IP=230.2.3.5
         NODE_NAME=node53
         JBOSS_INSTALCE=node
+        JBOSS_CONFIG=standalone-ha.xml
+        #Please specify a real IP address (such as NIC address 192.168.1.1), otherwise, the cluster won't work!!! 
+        BINDING_IP=0.0.0.0
+        UDP_IP=230.2.3.5
         JBOSS_PIDFILE="$JBOSS_HOME/$JBOSS_INSTALCE/$JBOSS_INSTALCE.pid"
         JBOSS_CONSOLE_LOG="$JBOSS_HOME/$JBOSS_INSTALCE/log/console.log"
         BASE_DIR="$JBOSS_HOME/$JBOSS_INSTALCE"
