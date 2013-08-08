@@ -59,3 +59,31 @@ Fuse ESB EAP 7 使用总结
             <transportConnector name="openwire" uri="tcp://0.0.0.0:0?maximumConnections=1000" discoveryUri="multicast://default"/>
         </transportConnectors>
 
+#### 解决启动异常：java.rmi.UnknownHostException: Unknown host: 0.0.0.0
+
+1. 异常信息
+
+        Exception in thread "JMX Connector Thread [service:jmx:rmi://0.0.0.0:44444/jndi/rmi://0.0.0.0:1099/karaf-root]" java.lang.RuntimeException: Could not start JMX connector server
+                at org.apache.karaf.management.ConnectorServerFactory$1.run(ConnectorServerFactory.java:252)
+        Caused by: java.io.IOException: Cannot bind to URL [rmi://0.0.0.0:1099/karaf-root]: javax.naming.ConfigurationException [Root exception is java.rmi.UnknownHostException: Unknown host: 0.0.0.0; nested exception is: 
+                java.net.UnknownHostException: CustomerManagement: CustomerManagement: Name or service not known]
+                at javax.management.remote.rmi.RMIConnectorServer.newIOException(RMIConnectorServer.java:826)
+                at javax.management.remote.rmi.RMIConnectorServer.start(RMIConnectorServer.java:431)
+                at org.apache.karaf.management.ConnectorServerFactory$1.run(ConnectorServerFactory.java:239)
+        Caused by: javax.naming.ConfigurationException [Root exception is java.rmi.UnknownHostException: Unknown host: 0.0.0.0; nested exception is: 
+                java.net.UnknownHostException: CustomerManagement: CustomerManagement: Name or service not known]
+                at com.sun.jndi.rmi.registry.RegistryContext.bind(RegistryContext.java:143)
+                at com.sun.jndi.toolkit.url.GenericURLContext.bind(GenericURLContext.java:226)
+                at javax.naming.InitialContext.bind(InitialContext.java:419)
+                at javax.management.remote.rmi.RMIConnectorServer.bind(RMIConnectorServer.java:643)
+                at javax.management.remote.rmi.RMIConnectorServer.start(RMIConnectorServer.java:426)
+                ... 1 more
+
+2. 解决方法
+
+    修改以下文件，把0.0.0.0替换为127.0.0.1：
+    
+        activemq.xml
+        org.apache.karaf.management.cfg
+        org.apache.karaf.shell.cfg
+        
