@@ -52,6 +52,8 @@ Auto Setting ip address for RaspberryPi:
           service NetworkManager stop;
           chkconfig NetworkManager off;
           chkconfig network on;
+          systemctl enable crond.service;
+          systemctl isolate multi-user.target;
           update_mark=1;
           echo "reset network `date`">>$LOG_FILE;
         fi
