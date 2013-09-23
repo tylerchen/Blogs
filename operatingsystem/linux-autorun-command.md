@@ -4,7 +4,7 @@ Auto Setting ip address for RaspberryPi:
 
 1. Add a job to /etc/crontab
 
-        content...
+        */2 * * * * root sh /boot/auto-config.sh
 
 2. Add a script file:
 
