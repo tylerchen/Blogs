@@ -158,3 +158,45 @@ Karaf Useful Thinks
 
     The @snapshots suffix can be added to the offline repository URL, if there is a possibility that some of the artifacts in it are snapshot versions.
 
+  9. My sample pom.xml
+
+        <project>
+        	<modelVersion>4.0.0</modelVersion>
+        	<groupId>org.iff</groupId>
+        	<artifactId>test-karaf</artifactId>
+        	<version>1.0.0</version>
+        	<dependencies>
+        	</dependencies>
+        	<build>
+        		<plugins>
+        			<plugin>
+        				<groupId>org.apache.karaf.tooling</groupId>
+        				<artifactId>features-maven-plugin</artifactId>
+        				<version>2.3.2</version>
+        				<executions>
+        					<execution>
+        						<id>add-features-to-repo</id>
+        						<phase>generate-resources</phase>
+        						<goals>
+        							<goal>add-features-to-repo</goal>
+        						</goals>
+        						<configuration>
+        							<descriptors>
+        								<descriptor>mvn:org.apache.camel.karaf/apache-camel/2.12.0/xml/features</descriptor>
+        							</descriptors>
+        							<features>
+        								<feature>war</feature>
+        								<feature>webconsole</feature>
+        								<feature>camel</feature>
+        							</features>
+        							<repository>${project.build.directory}/features-repo</repository>
+        						</configuration>
+        					</execution>
+        				</executions>
+        			</plugin>
+        		</plugins>
+        	</build>
+        </project>
+
+
+
