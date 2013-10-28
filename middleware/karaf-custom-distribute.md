@@ -1,4 +1,4 @@
-Karaf Useful Thinks
+Karaf Custom Distribute
 ======
 
 1. How to create a custom distribute (create a offline distribute)
@@ -223,5 +223,60 @@ Karaf Useful Thinks
           	</build>
           </project>
 
+  10. Other resources
+  
+    Spring repository:
 
+          <repository>
+              <id>com.springsource.repository.bundles.release
+              </id>
+              <name>SpringSource Enterprise Bundle Repository -
+                  SpringSource Bundle Releases</name>
+              <url>http://repository.springsource.com/maven/bundles/release
+              </url>
+              <releases>
+                  <enabled>true</enabled>
+                  <updatePolicy>daily</updatePolicy>
+                  <checksumPolicy>warn</checksumPolicy>
+              </releases>
+          </repository>
+          <repository>
+              <id>com.springsource.repository.bundles.external
+              </id>
+              <name>SpringSource Enterprise Bundle Repository -
+                  External Bundle Releases</name>
+              <url>http://repository.springsource.com/maven/bundles/external
+              </url>
+              <releases>
+                  <enabled>true</enabled>
+                  <updatePolicy>daily</updatePolicy>
+                  <checksumPolicy>warn</checksumPolicy>
+              </releases>
+          </repository>
+          <repository>
+              <id>com.springsource.repository.libraries.release
+              </id>
+              <name>SpringSource Enterprise Bundle Repository -
+                  SpringSource Library Releases</name>
+              <url>http://repository.springsource.com/maven/libraries/release
+              </url>
+              <releases>
+                  <enabled>true</enabled>
+                  <updatePolicy>daily</updatePolicy>
+                  <checksumPolicy>warn</checksumPolicy>
+              </releases>
+          </repository>
+          <repository>
+              <id>com.springsource.repository.libraries.external
+              </id>
+              <name>SpringSource Enterprise Bundle Repository -
+                  External Library Releases</name>
+              <url>http://repository.springsource.com/maven/libraries/external
+              </url>
+              <releases>
+                  <enabled>true</enabled>
+                  <updatePolicy>daily</updatePolicy>
+                  <checksumPolicy>warn</checksumPolicy>
+              </releases>
+          </repository>
 
