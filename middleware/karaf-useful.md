@@ -165,6 +165,30 @@ Karaf Useful Thinks
           	<groupId>org.iff</groupId>
           	<artifactId>test-karaf</artifactId>
           	<version>1.0.0</version>
+          	<repositories>
+          		<repository>
+          			<id>esb.system.repo</id>
+          			<name>Fuse ESB internal system repo</name>
+          			<url>file:///opt/karaf/apache-karaf-2.3.3/system</url>
+          			<snapshots>
+          				<enabled>false</enabled>
+          			</snapshots>
+          			<releases>
+          				<enabled>true</enabled>
+          			</releases>
+          		</repository>
+          		<repository>
+          			<id>com.springsource.repository.bundles.release</id>
+          			<name>SpringSource Enterprise Bundle Repository - SpringSource Bundle
+          				Releases</name>
+          			<url>http://repository.springsource.com/maven/bundles/release</url>
+          			<releases>
+          				<enabled>true</enabled>
+          				<updatePolicy>daily</updatePolicy>
+          				<checksumPolicy>warn</checksumPolicy>
+          			</releases>
+          		</repository>
+          	</repositories>
           	<dependencies>
           	</dependencies>
           	<build>
@@ -182,7 +206,8 @@ Karaf Useful Thinks
           						</goals>
           						<configuration>
           							<descriptors>
-          								<descriptor>mvn:org.apache.camel.karaf/apache-camel/2.12.0/xml/features</descriptor>
+          								<descriptor>mvn:org.apache.camel.karaf/apache-camel/2.12.0/xml/features
+          								</descriptor>
           							</descriptors>
           							<features>
           								<feature>war</feature>
