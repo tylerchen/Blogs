@@ -1,67 +1,67 @@
 Karaf Custom Distribute
 ======
 
-1. How to create a custom distribute (create a offline distribute)
+How to create a custom distribute (create a offline distribute)
 
-  [Generating a Custom Offline Repository](https://access.redhat.com/site/documentation/en-US/Fuse_ESB_Enterprise/7.1/html/Deploying_into_the_Container/files/Locate-CustomRepo.html)
+[Generating a Custom Offline Repository](https://access.redhat.com/site/documentation/en-US/Fuse_ESB_Enterprise/7.1/html/Deploying_into_the_Container/files/Locate-CustomRepo.html)
 
-  1. create a maven project with a POM file
+1. create a maven project with a POM file
 
-          <?xml version="1.0" encoding="UTF-8"?>
-          <project xmlns="http://maven.apache.org/POM/4.0.0"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-              <modelVersion>4.0.0</modelVersion>
-              <groupId>org.acme.offline-repo</groupId>
-              <artifactId>custom-repo</artifactId>
-              <version>1.0.0</version>
-              <name>Generate offline features repository</name>
-          </project>
+    <?xml version="1.0" encoding="UTF-8"?>
+    <project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+        <groupId>org.acme.offline-repo</groupId>
+        <artifactId>custom-repo</artifactId>
+        <version>1.0.0</version>
+        <name>Generate offline features repository</name>
+    </project>
       
-  2. Add the features-maven-plugin
+2. Add the features-maven-plugin
 
-          <project ...>
-              ...
-              <build>
-                  <plugins>
-                    <plugin>
-                      <groupId>org.apache.karaf.tooling</groupId>
-                      <artifactId>features-maven-plugin</artifactId>
-                      <version>2.2.1</version>
-          
-                      <executions>
-                        <execution>
-                          <id>add-features-to-repo</id>
-                          <phase>generate-resources</phase>
-                          <goals>
-                            <goal>add-features-to-repo</goal>
-                          </goals>
-                          <configuration>
-                            <descriptors>
-                              <!-- List the URLs of required feature repositories here -->
-                            </descriptors>
-                            <features>
-                              <!-- List features you want in the offline repo here -->
-                            </features>
-                            <repository>target/features-repo</repository>
-                          </configuration>
-                        </execution>
-                      </executions>
-                    </plugin>
-                  </plugins>
-              </build>
-          </project>
+		<project ...>
+		  ...
+		  <build>
+			  <plugins>
+				<plugin>
+				  <groupId>org.apache.karaf.tooling</groupId>
+				  <artifactId>features-maven-plugin</artifactId>
+				  <version>2.2.1</version>
 
-  3. Specify the features to download
+				  <executions>
+					<execution>
+					  <id>add-features-to-repo</id>
+					  <phase>generate-resources</phase>
+					  <goals>
+						<goal>add-features-to-repo</goal>
+					  </goals>
+					  <configuration>
+						<descriptors>
+						  <!-- List the URLs of required feature repositories here -->
+						</descriptors>
+						<features>
+						  <!-- List features you want in the offline repo here -->
+						</features>
+						<repository>target/features-repo</repository>
+					  </configuration>
+					</execution>
+				  </executions>
+				</plugin>
+			  </plugins>
+		  </build>
+		</project>
 
-          <features>
-            <feature>camel-jms</feature>
-            <feature>camel-quartz</feature>
-          </features>
+3. Specify the features to download
 
-  4. Specify the feature repositories
+		<features>
+			<feature>camel-jms</feature>
+			<feature>camel-quartz</feature>
+		</features>
 
-    To see the full list of standard feature repositories used by your installation of Fuse ESB Enterprise, open the etc/org.apache.karaf.features.cfg configuration file and look at the featuresRepository setting, which is a comma-separated list of feature repositories, like the following:
+4. Specify the feature repositories
+
+  To see the full list of standard feature repositories used by your installation of Fuse ESB Enterprise, open the etc/org.apache.karaf.features.cfg configuration file and look at the featuresRepository setting, which is a comma-separated list of feature repositories, like the following:
     
           ...
           #
@@ -87,7 +87,7 @@ Karaf Custom Distribute
             <descriptor>mvn:org.apache.activemq/activemq-karaf/5.4.2-fuse-01-00/xml/features</descriptor>
           </descriptors>
 
-  5. Specify the Karaf system repository
+5. Specify the Karaf system repository
 
           <project ...>
               ...
@@ -107,9 +107,9 @@ Karaf Custom Distribute
               ...
           </project>
 
-  6. Specify the remote repositories
+6. Specify the remote repositories
 
-    Generally, the project requires access to all of the standard Fuse ESB Enterprise remote repositories. To see the full list of standard remote repositories, open the etc/org.ops4j.pax.url.mvn.cfg configuration file and look at the org.ops4j.pax.url.mvn.repositories setting, which is a comma-separated list of URLs like the following:
+  Generally, the project requires access to all of the standard Fuse ESB Enterprise remote repositories. To see the full list of standard remote repositories, open the etc/org.ops4j.pax.url.mvn.cfg configuration file and look at the org.ops4j.pax.url.mvn.repositories setting, which is a comma-separated list of URLs like the following:
 
           org.ops4j.pax.url.mvn.repositories= \
               http://repo1.maven.org/maven2, \
@@ -123,8 +123,9 @@ Karaf Custom Distribute
               http://repository.springsource.com/maven/bundles/release, \
               http://repository.springsource.com/maven/bundles/external
 
-    RepoURL
-    The value of the repository URL, RepoURL, is inserted directly into the url child element of the repository element. For example, the http://repo1.maven.org/maven2 repository URL translates to the following repository element:
+  RepoURL
+  
+  The value of the repository URL, RepoURL, is inserted directly into the url child element of the repository element. For example, the http://repo1.maven.org/maven2 repository URL translates to the following repository element:
 
         <repository>
           <!-- 'id' can be whatever you like -->
@@ -140,25 +141,25 @@ Karaf Custom Distribute
           </releases>
         </repository>
 
-  7. Generate the offline repository
+7. Generate the offline repository
 
-    To generate the custom offline repository, open a new command prompt, change directory to ProjectDir/custom-repo, and enter the following Maven command:
+  To generate the custom offline repository, open a new command prompt, change directory to ProjectDir/custom-repo, and enter the following Maven command:
 
         mvn generate-resources
 
-    Assuming that the Maven build completes successfully, the custom offline repository should now be available in the following location:
+  Assuming that the Maven build completes successfully, the custom offline repository should now be available in the following location:
 
         ProjectDir/custom-repo/target/features-repo
 
-  8. Install the offline repository
+8. Install the offline repository
 
-    To install the custom offline repository in the Fuse ESB Enterprise container, edit the etc/org.ops4j.pax.url.mvn.cfg file and append the offline repository directory to the list of default repositories, as follows:
+  To install the custom offline repository in the Fuse ESB Enterprise container, edit the etc/org.ops4j.pax.url.mvn.cfg file and append the offline repository directory to the list of default repositories, as follows:
 
         org.ops4j.pax.url.mvn.defaultRepositories=file:${karaf.home}/${karaf.default.repository}@snapshots,ProjectDir/custom-repo/target/features-repo@snapshots
 
-    The @snapshots suffix can be added to the offline repository URL, if there is a possibility that some of the artifacts in it are snapshot versions.
+  The @snapshots suffix can be added to the offline repository URL, if there is a possibility that some of the artifacts in it are snapshot versions.
 
-  9. My sample pom.xml
+9. My sample pom.xml
 
             <project>
             	<modelVersion>4.0.0</modelVersion>
@@ -223,9 +224,9 @@ Karaf Custom Distribute
             	</build>
             </project>
 
-  10. Other resources
+10. Other resources
   
-    Spring repository:
+  Spring repository:
 
           <repository>
               <id>com.springsource.repository.bundles.release
