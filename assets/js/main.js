@@ -15,7 +15,8 @@ $(document).ready(function() {
 		$.get(url, function(data) {
 			if (data) {
 				try {
-					$("#bodyColumn").html(converter.makeHtml(data));
+					//$("#bodyColumn").html(converter.makeHtml(data));
+					$("#bodyColumn").html(markdown.toHTML(data));
 				} catch (err) {
 				}
 			}
