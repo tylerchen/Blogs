@@ -240,3 +240,16 @@ The PooledInvoker MBean supports a number of attribute to configure the socket t
 		exit 0
 
 
+### Create new Session(JSESSIONID) in Jboss
+
+For protection against session fixation, we need to generate a new session with a new session id. I noticed in the Spring Security source code, this is done in SessionUtils.startNewSessionIfRequired() as follows:
+
+		session.invalidate();
+		session = request.getSession(true); // we now have a new session
+
+This works fine on Tomcat but not JBoss. You need to setting:
+
+		../deploy/jboss-web.deployer/server.xml
+		
+		emptySessionPath="false"
+
