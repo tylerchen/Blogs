@@ -111,82 +111,51 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
     # processname: standalone
     # pidfile: $JBOSS_HOME/$JBOSS_INSTALCE/$JBOSS_INSTALCE.pid
     # config: /etc/jboss-as/jboss-as.conf
-     
+    
     # Source function library.
     . /etc/init.d/functions
     
-    JAVA_HOME=/usr/local/jdk1.6.0_37
-    JBOSS_HOME=/usr/local/jboss-as-7.1.1.Final
-    JBOSS_USER=root
+    JAVA_HOME=/home/jboss/jdk1.6.0_32
+    JBOSS_HOME=/home/jboss/as7
+    #JBOSS_USER=jboss
     NODE_NAME=node53
     JBOSS_INSTALCE=node
     JBOSS_CONFIG=standalone-ha.xml
     #Please specify a real IP address (such as NIC address 192.168.1.1), IF NOT, the cluster by UDP won't work!!! 
-    BINDING_IP=0.0.0.0
+    BINDING_IP=192.168.30.143
     UDP_IP=230.2.3.5
     JBOSS_PIDFILE="$JBOSS_HOME/$JBOSS_INSTALCE/$JBOSS_INSTALCE.pid"
     JBOSS_CONSOLE_LOG="$JBOSS_HOME/$JBOSS_INSTALCE/log/console.log"
     BASE_DIR="$JBOSS_HOME/$JBOSS_INSTALCE"
     DEPLOY_STATUS_FILE="$JBOSS_HOME/$JBOSS_INSTALCE/deployments/*.war.*"
     
-     
+    JBOSS_STARTUP="$JBOSS_HOME/bin/standalone.sh -c $JBOSS_CONFIG -b $BINDING_IP -u $UDP_IP -Djboss.server.base.dir=$BASE_DIR -Djboss.node.name=$NODE_NAME"
+    JBOSS_SHUTDOWN="$JBOSS_HOME/bin/jboss-cli.sh --connect command=:shutdown"
+    
+    
     # Load Java configuration.
     [ -r /etc/java/java.conf ] && . /etc/java/java.conf
     export JAVA_HOME
-     
+    
     # Load JBoss AS init.d configuration.
-    if [ -z "$JBOSS_CONF" ]; then
-      JBOSS_CONF="/etc/jboss-as/jboss-as.conf"
-    fi
-     
     [ -r "$JBOSS_CONF" ] && . "${JBOSS_CONF}"
-     
-    # Set defaults.
-     
-    if [ -z "$JBOSS_HOME" ]; then
-      JBOSS_HOME=/usr/share/jboss-as
-    fi
+    
     export JBOSS_HOME
-     
-    if [ -z "$JBOSS_PIDFILE" ]; then
-      JBOSS_PIDFILE=/var/run/jboss-as/jboss-as-standalone.pid
-    fi
     export JBOSS_PIDFILE
-     
-    if [ -z "$JBOSS_CONSOLE_LOG" ]; then
-      JBOSS_CONSOLE_LOG=/var/log/jboss-as/console.log
-    fi
-     
     if [ -z "$JBOSS_USER" ]; then
-      JBOSS_USER=jboss
+      echo "Specify jboss user..."
     fi
-     
+    
     if [ -z "$STARTUP_WAIT" ]; then
       STARTUP_WAIT=30
     fi
-     
+    
     if [ -z "$SHUTDOWN_WAIT" ]; then
       SHUTDOWN_WAIT=30
     fi
-     
-    if [ -z "$JBOSS_CONFIG" ]; then
-      JBOSS_CONFIG=standalone.xml
-    fi
-     
-    JBOSS_SCRIPT="$JBOSS_HOME/bin/standalone.sh -c $JBOSS_CONFIG -b $BINDING_IP -u $UDP_IP -Djboss.server.base.dir=$BASE_DIR -Djboss.node.name=$NODE_NAME"
-     
-    prog='jboss-as'
-     
-    CMD_PREFIX=''
-     
-    if [ ! -z "$JBOSS_USER" ]; then
-      if [ -x /etc/rc.d/init.d/functions ]; then
-        CMD_PREFIX="daemon --user $JBOSS_USER"
-      else
-        CMD_PREFIX="su - $JBOSS_USER -c"
-      fi
-    fi
-     
+    
+    prog='jboss-as7'
+    
     start() {
       echo -n "Starting $prog: "
       if [ -f $JBOSS_PIDFILE ]; then
@@ -200,28 +169,23 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
           rm -f $JBOSS_PIDFILE
         fi
       fi
+    
       mkdir -p $(dirname $JBOSS_CONSOLE_LOG)
-      cat /dev/null > $JBOSS_CONSOLE_LOG
-     
       mkdir -p $(dirname $JBOSS_PIDFILE)
-      chown $JBOSS_USER $(dirname $JBOSS_PIDFILE) || true
-      #$CMD_PREFIX JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT 2>&1 > $JBOSS_CONSOLE_LOG &
-      #$CMD_PREFIX JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT &
-      
+      cat /dev/null > $JBOSS_CONSOLE_LOG
+    
       #remove deploy status
       rm -rf $DEPLOY_STATUS_FILE
-     
+    
       if [ ! -z "$JBOSS_USER" ]; then
-        if [ -x /etc/rc.d/init.d/functions ]; then
-          daemon --user $JBOSS_USER LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT 2>&1 > $JBOSS_CONSOLE_LOG &
-        else
-          su - $JBOSS_USER -c "LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_SCRIPT" 2>&1 > $JBOSS_CONSOLE_LOG &
-        fi
+        su - $JBOSS_USER -c "LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_STARTUP" 2>&1 > $JBOSS_CONSOLE_LOG &
+      else
+        LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=$JBOSS_PIDFILE $JBOSS_STARTUP 2>&1 > $JBOSS_CONSOLE_LOG &
       fi
-     
+    
       count=0
       launched=false
-     
+    
       until [ $count -gt $STARTUP_WAIT ]
       do
         grep 'JBoss AS.*started in' $JBOSS_CONSOLE_LOG > /dev/null
@@ -232,29 +196,30 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
         sleep 1
         let count=$count+1;
       done
-     
+    
       success
       echo
       return 0
     }
-     
+    
     stop() {
       echo -n $"Stopping $prog: "
       count=0;
-     
+    
       if [ -f $JBOSS_PIDFILE ]; then
         read kpid < $JBOSS_PIDFILE
         let kwait=$SHUTDOWN_WAIT
-     
+    	echo "$prog pid:$kpid"
+    
         # Try issuing SIGTERM
-     
-        kill -15 $kpid
+    	$JBOSS_SHUTDOWN >> $JBOSS_CONSOLE_LOG 2>&1 &
         until [ `ps --pid $kpid 2> /dev/null | grep -c $kpid 2> /dev/null` -eq '0' ] || [ $count -gt $kwait ]
+    	# kill -15 $kpid
         do
           sleep 1
           let count=$count+1;
         done
-     
+    
         if [ $count -gt $kwait ]; then
           kill -9 $kpid
         fi
@@ -263,7 +228,7 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
       success
       echo
     }
-     
+    
     status() {
       if [ -f $JBOSS_PIDFILE ]; then
         read ppid < $JBOSS_PIDFILE
@@ -274,7 +239,7 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
       fi
       echo "$prog is not running"
     }
-     
+    
     case "$1" in
       start)
           start
