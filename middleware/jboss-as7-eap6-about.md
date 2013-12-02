@@ -198,6 +198,7 @@ You need to configure JAVA_HOME, JBOSS_HOME, JBOSS_USER, JBOSS_CONFIG, BINDING_I
       done
     
       success
+      echo "Log: tail -f $JBOSS_CONSOLE_LOG"
       echo
       return 0
     }
