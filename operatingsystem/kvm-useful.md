@@ -135,3 +135,19 @@ KVM Useful
 
 9. start guest OS and configure network [if br0 use dhcp the guest OS will assigned a new ip address]
 
+### virsh command list
+
+1. virsh commands
+
+        virsh <command> <domain-id> [OPTIONS]
+        virsh list                        #list all running vm
+        virsh start vmname                #start vm by name
+        virsh shutdown vmname             #shutdown vm by name
+        virsh console vmname              #open console to vm
+        virsh suspend vmname              #suspend vm by name, still in memory
+        virsh resume vmname               #resume a suspend vm
+        virsh vncdisplay vmname           #display vnc display port
+        virsh snapshot-create-as --domain rhel63 --name rhel63-20131213 --description "pure rhel63"
+        
+        qemu-img create -f raw /home/vm/rhel63.img 20G
+        
