@@ -150,4 +150,4 @@ KVM Useful
         virsh snapshot-create-as --domain rhel63 --name rhel63-20131213 --description "pure rhel63"
         
         qemu-img create -f raw /home/vm/rhel63.img 20G
-        
+        qemu-img create -f qcow2 rhel63min.img 10G
