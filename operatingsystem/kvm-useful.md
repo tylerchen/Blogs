@@ -151,3 +151,6 @@ KVM Useful
         
         qemu-img create -f raw /home/vm/rhel63.img 20G
         qemu-img create -f qcow2 rhel63min.img 10G
+        
+         rm /etc/udev/rules.d/70-persistent-net.rules
+
