@@ -160,5 +160,11 @@ KVM Useful
         lvextend /dev/mapper/root -l+100%FREE (or, whatever your root logical volume is called.)
         resize2fs /dev/mapper/root (assuming ext2/3/4)
         
+        #add vnc support
+        <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0' keymap='en-us'>
+              <listen type='address' address='0.0.0.0'/>
+        </graphics>
+        virsh vncdisplay rhel63server
+        
         rm /etc/udev/rules.d/70-persistent-net.rules
 
