@@ -155,5 +155,10 @@ KVM Useful
         qemu-img create -f qcow2 rhel63min.img 10G
         qemu-img convert -O qcow2 rhel63.img rhel63min.img
         
-         rm /etc/udev/rules.d/70-persistent-net.rules
+        qemu-img resize rhel63server.img +180G
+        pvresize /dev/sda2 (assuming your LVM partition is sda2. Replace as required.)
+        lvextend /dev/mapper/root -l+100%FREE (or, whatever your root logical volume is called.)
+        resize2fs /dev/mapper/root (assuming ext2/3/4)
+        
+        rm /etc/udev/rules.d/70-persistent-net.rules
 
