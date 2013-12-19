@@ -156,9 +156,17 @@ KVM Useful
         qemu-img convert -O qcow2 rhel63.img rhel63min.img
         
         qemu-img resize rhel63server.img +180G
-        pvresize /dev/sda2 (assuming your LVM partition is sda2. Replace as required.)
-        lvextend /dev/mapper/root -l+100%FREE (or, whatever your root logical volume is called.)
-        resize2fs /dev/mapper/root (assuming ext2/3/4)
+        parted /dev/vda                                    #goto guest OS
+        (parted) unit chs
+        (parted) print                                     #remember the start and max [chs]
+        (parted) rm 2
+        (parted) mkpart primary ext4 6,127,57  1946,198,43
+        (parted) set 2 lvm on
+        (parted) quit
+        reboot
+        pvresize /dev/vda2
+        lvextend /dev/mapper/root -l+100%FREE
+        resize2fs /dev/mapper/root #(assuming ext2/3/4)
         
         #add vnc support
         <graphics type='vnc' port='-1' autoport='yes' listen='0.0.0.0' keymap='en-us'>
@@ -167,4 +175,7 @@ KVM Useful
         virsh vncdisplay rhel63server
         
         rm /etc/udev/rules.d/70-persistent-net.rules
+        
+        vi /etc/resolv.conf
+        nameserver 8.8.8.8
 
