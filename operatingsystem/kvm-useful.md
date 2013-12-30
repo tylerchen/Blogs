@@ -150,6 +150,7 @@ KVM Useful
         virsh snapshot-create-as --domain rhel63 --name rhel63-20131213 --description "pure rhel63"
         virsh snapshot-list rhel63server
         virsh snapshot-revert rhel63server --snapshotname rhel63-20131213
+        virsh managedsave-remove rhel63server   #error: Unable to read from monitor: Connection reset by peer
         
         qemu-img create -f raw /home/vm/rhel63.img 20G
         qemu-img create -f qcow2 rhel63min.img 10G
