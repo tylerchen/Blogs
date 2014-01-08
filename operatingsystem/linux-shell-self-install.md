@@ -1,7 +1,7 @@
 Linux Shell Script Self-Install and Keep Running
 ------------
 
-### Keep br0 interface running
+### Sample 1. Keep br0 interface running
 
     #!/bin/bash
     
@@ -53,7 +53,7 @@ Linux Shell Script Self-Install and Keep Running
     esac
 
 
-### Keep VM running
+### Sample 2. Keep VM running
 
     #!/bin/bash
     
