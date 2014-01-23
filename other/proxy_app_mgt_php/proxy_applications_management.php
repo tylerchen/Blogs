@@ -12,6 +12,8 @@
 	$login_user_name="";
 	$login_user_password="";
 	
+	error(get_httpd_status());
+	
 	if(isset($_POST['user_login'])){
 		$login_user_name = trim($_POST['login_user_name']);
 		$login_user_password  = trim($_POST['login_user_password']);
@@ -181,6 +183,15 @@
 		}
 		fclose($fd);
 		return $proxyArr;
+	}
+	function get_httpd_status(){
+		$command = "cat /etc/sysconfig/keeprunning/httpd.reload|grep -c 'reload'";
+		$last_out = exec($command, $out, $retval);
+		if( strcmp("$last_out", "0") == 0 ){
+		}else{
+			return "httpd service is reloading...";
+		}
+		return;
 	}
 ?>
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML Strict Level 3//EN">
