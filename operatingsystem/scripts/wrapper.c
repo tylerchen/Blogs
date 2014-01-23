@@ -31,3 +31,8 @@ main (int argc, char *argv[])
 
    return 0;
  }
+//gcc wrapper.c -o php_root
+//chown root php_root
+//chmod u=rwx,go=xr,+s php_root
+//chown root php_root.sh
+//chmod u=rwx,go=xr php_root.sh
