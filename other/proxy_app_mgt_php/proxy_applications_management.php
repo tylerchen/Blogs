@@ -265,7 +265,7 @@ DIV.clear{
 	<TR BGCOLOR="#CCCCCC">
 		<TD ALIGN=center CLASS="logo">
 			<!-- === Add Proxy === -->
-			<FORM METHOD="POST" ENCTYPE="application/x-www-form-urlencoded" ACTION="proxy_applications_management.php">
+			<FORM METHOD="POST" ENCTYPE="application/x-www-form-urlencoded" ACTION="proxy_applications_management.php" AUTOCOMPLETE="off">
 				<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="5">
 					<TR BGCOLOR="#CCCCCC"> <TD CLASS="logo" colspan="5"> <B>User Login</B> </TD></TR>
 					<TR>
@@ -288,7 +288,7 @@ DIV.clear{
 	<TR BGCOLOR="#CCCCCC">
 		<TD ALIGN=center CLASS="logo">
 			<!-- === Add Proxy === -->
-			<FORM METHOD="POST" ENCTYPE="application/x-www-form-urlencoded" ACTION="proxy_applications_management.php">
+			<FORM METHOD="POST" ENCTYPE="application/x-www-form-urlencoded" ACTION="proxy_applications_management.php" AUTOCOMPLETE="off">
 				<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="5">
 					<TR BGCOLOR="#CCCCCC"> <TD CLASS="logo" colspan="5"> <B>Add Proxy</B> </TD></TR>
 					<TR>
