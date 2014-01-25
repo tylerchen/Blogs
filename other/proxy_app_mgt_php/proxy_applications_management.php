@@ -12,7 +12,10 @@
 	$login_user_name="";
 	$login_user_password="";
 	
-	error(get_httpd_status());
+	$httpd_status=get_httpd_status();
+	if(strlen($httpd_status)>0){
+		error($httpd_status."<script language='javascript'>setTimeout('window.location.reload(true)',2000)</script>");
+	}
 	
 	if(isset($_POST['user_login'])){
 		$login_user_name = trim($_POST['login_user_name']);
