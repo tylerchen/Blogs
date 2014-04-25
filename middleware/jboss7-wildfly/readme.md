@@ -3,13 +3,13 @@ JBoss AS7 & Wildfly Configuration
 
 ### Files List
 
-Install Scripts: [scripts/install-env.sh](install-env.sh), [scripts/install-jdk.sh](install-jdk.sh), [scripts/install-jboss.sh](install-jboss.sh), [scripts/start-jboss.sh](start-jboss.sh), [scripts/stop-jboss.sh](stop-jboss.sh)
+Install Scripts: [install-env.sh](scripts/install-env.sh), [install-jdk.sh](scripts/install-jdk.sh), [install-jboss.sh](scripts/install-jboss.sh), [start-jboss.sh](scripts/start-jboss.sh), [stop-jboss.sh](scripts/stop-jboss.sh) 
 
-A Cluster Test Application: [scripts/test-application.war](test-application.war)
+A Cluster Test Application: [test-application.war](scripts/test-application.war)
 
-A JDBC Module (mysql): [scripts/com.msql.tar.gz](com.msql.tar.gz)
+A JDBC Module (mysql): [com.msql.tar.gz](scripts/com.msql.tar.gz)
 
-A Mod_cluster: [scripts/mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz](mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz)
+A Mod_cluster: [mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz](scripts/mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz)
 
 ### Howto Use the Install Scripts
 
