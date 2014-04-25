@@ -3,13 +3,13 @@ JBoss AS7 & Wildfly Configuration
 
 ### Files List
 
-Install Scripts: [install-env.sh](scripts/jboss7-wildfly/install-env.sh), [install-jdk.sh](scripts/jboss7-wildfly/install-jdk.sh), [install-jboss.sh](scripts/jboss7-wildfly/install-jboss.sh), [start-jboss.sh](scripts/jboss7-wildfly/start-jboss.sh), [stop-jboss.sh](scripts/jboss7-wildfly/stop-jboss.sh) 
+Install Scripts: [install-env.sh](jboss7-wildfly/scripts/install-env.sh), [install-jdk.sh](jboss7-wildfly/scripts/install-jdk.sh), [install-jboss.sh](jboss7-wildfly/scripts/install-jboss.sh), [start-jboss.sh](jboss7-wildfly/scripts/start-jboss.sh), [stop-jboss.sh](jboss7-wildfly/scripts/stop-jboss.sh) 
 
-A Cluster Test Application: [test-application.war](scripts/jboss7-wildfly/test-application.war)
+A Cluster Test Application: [test-application.war](jboss7-wildfly/scripts/test-application.war)
 
-A JDBC Module (mysql): [com.msql.tar.gz](scripts/jboss7-wildfly/com.msql.tar.gz)
+A JDBC Module (mysql): [com.msql.tar.gz](jboss7-wildfly/scripts/com.msql.tar.gz)
 
-A Mod_cluster: [mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz](scripts/jboss7-wildfly/mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz)
+A Mod_cluster: [mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz](jboss7-wildfly/scripts/mod_cluster-1.2.0.Final-linux2-x64-ssl.tar.gz)
 
 ### Howto Use the Install Scripts
 
