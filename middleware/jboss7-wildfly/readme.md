@@ -30,6 +30,6 @@ JBoss AS7 & Wildfly Configuration
 
 ### Script Contents
 
-1. [Base Scripts(Environment, JDK)](jboss7-wildfly/base-scripts.md)
-2. [JBoss Scripts](jboss7-wildfly/jboss-scripts.md)
-3. [Mod Cluster Scripts](jboss7-wildfly/mod-cluster-scripts.md)
+1. [Base Scripts(Environment, JDK)](?md=jboss7-wildfly/base-scripts.md)
+2. [JBoss Scripts](?md=jboss7-wildfly/jboss-scripts.md)
+3. [Mod Cluster Scripts](?md=jboss7-wildfly/mod-cluster-scripts.md)
