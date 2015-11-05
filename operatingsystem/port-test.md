@@ -15,4 +15,5 @@ test.sh
     sk.close()
     EOF`
     
+    echo "sh test.sh 192.168.0.1 22"
     echo $test
