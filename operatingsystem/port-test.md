@@ -1,5 +1,6 @@
 test.sh
 ====
+
     #!/bin/bash
     
     test=`python << EOF
@@ -7,7 +8,7 @@ test.sh
     sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sk.settimeout(1)
     try:
-        sk.connect(("192.168.0.1",21))
+        sk.connect(("$1",$2))
         print 'OK'
     except Exception:
         print 'FAIL'
