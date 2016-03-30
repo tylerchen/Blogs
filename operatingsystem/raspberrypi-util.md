@@ -337,3 +337,22 @@ Auto Setting ip address for RaspberryPi:
        It has lots of free space available and it is ready to use.
        
        I hope this helps you.
+
+4. Install image to SD card
+
+       List the mount disk
+       
+              # df -h
+              /dev/disk2s1    50Mi   17Mi   33Mi    35%      512       0  100%   /Volumes/boo
+       
+       Unmount the disk. Make sure you are positive which disk is the SD Card
+       
+              # sudo diskutil unmount /dev/disk1s1
+       
+       Write the img to SD card
+       
+              # sudo dd bs=1m if=pidora-18-r2c.img of=/dev/disk1
+              #sudo diskutil eject /dev/rdisk1
+
+       Insert it in the Raspberry Pi and turn it on
+
