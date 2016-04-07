@@ -195,3 +195,14 @@ JBoss Fuse 6.2.1 Usage
 					</choice>
 				</route>
 			</camelContext>
+	
+	compile and deploy:
+		1) compile and package bundle
+			mvn clean package -Dmaven.test.skip=true
+		2) deploy to fuse
+			cp sample01-dynamic-route-*.jar $JBOSS_FUSE/deploy/
+	
+	testing:
+		1) create a queue foo from http://localhost:8181
+		2) add message, remember to set the header "test"
+		3) when test=1, test=2, test=other, to see then queue a, b, c content
