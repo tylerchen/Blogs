@@ -150,3 +150,48 @@ JBoss Fuse 6.2.1 Usage
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+#### 2.4. sample01-dynamic-route
+
+	from queue foo:
+		when header.test='1' then send to queue a
+		when header.test='2' then send to queue b
+		otherwise send to queue c
+	
+	project create by jboss fuse ide:
+		1) Fuse Intergration Project
+		2) Project Name = sample01-dynamic-route, Next
+		3) Select camel-archetype-blueprint, Finish
+		4) Remove src/main/resource/OSGI-INF folder, (just use spring)
+		5) Create src/main/resource/META-INF/spring
+		6) Right Click the folder you created -> New -> Camel XML File, camelContext.xml
+	
+	add content to camelContext.xml:
+		1) add mq configure
+			<bean id="activemq" class="org.apache.camel.component.jms.JmsComponent">
+				<property name="connectionFactory">
+					<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+						<property name="brokerURL" value="tcp://localhost:61616" />
+						<property name="userName" value="admin" />
+						<property name="password" value="admin" />
+					</bean>
+				</property>
+			</bean>
+		2) add route
+			<camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
+				<route>
+					<from uri="activemq:queue:foo" />
+					<choice>
+						<when>
+							<simple>${header.test} == '1'</simple>
+							<to uri="activemq:queue:a" />
+						</when>
+						<when>
+							<simple>${header.test}  == '2'</simple>
+							<to uri="activemq:queue:b" />
+						</when>
+						<otherwise>
+							<to uri="activemq:queue:c" />
+						</otherwise>
+					</choice>
+				</route>
+			</camelContext>
