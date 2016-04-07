@@ -160,7 +160,7 @@ JBoss Fuse 6.2.1 Usage
 	project create by jboss fuse ide:
 		1) Fuse Intergration Project
 		2) Project Name = sample01-dynamic-route, Next
-		3) Select camel-archetype-blueprint, Finish
+		3) Select camel-archetype-blueprint, change artifactid to sample01-dynamic-route, Finish
 		4) Remove src/main/resource/OSGI-INF folder, (just use spring)
 		5) Create src/main/resource/META-INF/spring
 		6) Right Click the folder you created -> New -> Camel XML File, camelContext.xml
@@ -206,3 +206,61 @@ JBoss Fuse 6.2.1 Usage
 		1) create a queue foo from http://localhost:8181
 		2) add message, remember to set the header "test"
 		3) when test=1, test=2, test=other, to see then queue a, b, c content
+
+#### 2.5. sample02-camel-activemq
+
+	use a timer to produce message, and consume this message:
+		a timer
+		produce message
+		consume message
+	
+	project create by jboss fuse ide:
+		1) Fuse Intergration Project
+		2) Project Name = sample02-camel-activemq, Next
+		3) Select camel-archetype-blueprint, change artifactid to sample02-camel-activemq, Finish
+		4) Remove src/main/resource/OSGI-INF folder, (just use spring)
+		5) Create src/main/resource/META-INF/spring
+		6) Right Click the folder you created -> New -> Camel XML File, sender.xml
+		7) Right Click the folder you created -> New -> Camel XML File, reciever.xml
+	
+	add content to sender.xml:
+		1) add mq configure
+			<bean id="activemq" class="org.apache.camel.component.jms.JmsComponent">
+				<property name="connectionFactory">
+					<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+						<property name="brokerURL" value="tcp://localhost:61616" />
+						<property name="userName" value="admin" />
+						<property name="password" value="admin" />
+					</bean>
+				</property>
+			</bean>
+		2) add route
+			<camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
+				<route>
+					<from uri="timer:timerName" />
+					<setBody>
+						<constant>Hello world.</constant>
+					</setBody>
+					<log message="Send: ${body}" />
+					<to uri="activemq:queue:timer" />
+				</route>
+			</camelContext>
+
+	add content to reciever.xml:
+		1) add route
+			<camelContext trace="false" xmlns="http://camel.apache.org/schema/spring">
+				<route>
+					<from uri="activemq:queue:timer" />
+					<log message="Recieve: ${body}" />
+				</route>
+			</camelContext>
+
+	compile and deploy:
+		1) compile and package bundle
+			mvn clean package -Dmaven.test.skip=true
+		2) deploy to fuse
+			cp sample02-camel-activemq-*.jar $JBOSS_FUSE/deploy/
+	
+	testing:
+		1) to see the log out put, to input "log:tail" in fuse console 
+
