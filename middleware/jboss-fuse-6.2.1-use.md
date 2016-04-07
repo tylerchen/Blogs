@@ -264,3 +264,4 @@ JBoss Fuse 6.2.1 Usage
 	testing:
 		1) to see the log out put, to input "log:tail" in fuse console 
 
+
