@@ -265,3 +265,116 @@ JBoss Fuse 6.2.1 Usage
 		1) to see the log out put, to input "log:tail" in fuse console 
 
 
+#### 2.6. sample03-camel-cxf
+
+	using cxf to provide a rest webservice, and expose the rest webservice via camel endpoint
+		create cxf rest webserice
+		route from endpoint to rest webservice
+	
+	project create by jboss fuse ide:
+		1) Fuse Intergration Project
+		2) Project Name = sample03-camel-cxf, Next
+		3) Select camel-archetype-blueprint, change artifactid to sample03-camel-cxf, Finish
+		4) Remove src/main/resource/OSGI-INF folder, (just use spring)
+		5) Create src/main/resource/META-INF/spring
+		6) Right Click the folder you created -> New -> Camel XML File, cxf.xml
+		7) Right Click the folder you created -> New -> Camel XML File, camelContext.xml
+		8) Create features to tell fuse to load the features you need, src/main/resource/features.xml
+	
+	implement the rest webservice:
+		1) HelloWorld.java
+			package com.mycompany.camel.cxf.code.first.blueprint.incident;
+			import javax.ws.rs.GET;
+			import javax.ws.rs.Path;
+			import javax.ws.rs.PathParam;
+			import javax.ws.rs.Produces;
+			@Produces("application/xml")
+			public interface HelloWorld {
+				@GET
+				@Path("/sayHelloTo/{userName}")
+				@Produces("application/xml")
+				HelloWorlBean sayHelloTo(@PathParam("userName") String userName);
+			}
+		2) HelloWorldImpl.java
+			package com.mycompany.camel.cxf.code.first.blueprint.incident;
+			import java.util.Random;
+			public class HelloWorldImpl implements HelloWorld {
+				private String id = new Random().nextLong() + ":";
+				public HelloWorlBean sayHelloTo(String userName) {
+					HelloWorlBean bean = new HelloWorlBean();
+					bean.setName(userName);
+					System.out.println(id + bean);
+					return bean;
+				}
+			}
+		3) HelloWorlBean.java
+			package com.mycompany.camel.cxf.code.first.blueprint.incident;
+			import java.io.Serializable;
+			import javax.xml.bind.annotation.XmlRootElement;
+			@XmlRootElement(name = "HelloWorlBean")
+			public class HelloWorlBean implements Serializable {
+				private String name;
+				public String getName() {
+					return name;
+				}
+				public void setName(String name) {
+					this.name = name;
+				}
+				public String toString() {
+					return "HelloWorlBean [name=" + name + "]";
+				}
+			}
+		
+	add cxf rest server configure, cxf.xml
+		1) configure the cxf rest server, and provide rest webservice
+			<bean id="helloWorld1" 
+				class="com.mycompany.camel.cxf.code.first.blueprint.incident.HelloWorldImpl" />
+			<!-- Defined the real JAXRS back end service -->
+			<jaxrs:server id="restService1" address="http://0.0.0.0:9001/rest"
+				staticSubresourceResolution="true">
+				<jaxrs:serviceBeans>
+					<ref bean="helloWorld1" />
+				</jaxrs:serviceBeans>
+			</jaxrs:server>
+	add route, camelContext.xml
+		1) definde the server endpoint and client endpoint, add route
+			<camelContext trace="false"
+				xmlns="http://camel.apache.org/schema/spring">
+				<route>
+					<from uri="cxfrs:bean:rsServer" />
+					<to uri="cxfrs:bean:rsClient1" />
+				</route>
+			</camelContext>
+		
+			<cxf:rsServer id="rsServer"
+				address="http://0.0.0.0:9000/fuse/rest/helloworld"
+				serviceClass="com.mycompany.camel.cxf.code.first.blueprint.incident.HelloWorldImpl">
+			</cxf:rsServer>
+		
+			<cxf:rsClient id="rsClient1" address="http://0.0.0.0:9001/rest"
+				serviceClass="com.mycompany.camel.cxf.code.first.blueprint.incident.HelloWorldImpl"></cxf:rsClient>
+	
+	add features.xml content:
+		1) this example use cxf and jetty, so tell the fuse to load this features.
+			<?xml version="1.0" encoding="UTF-8"?>
+			<features name="quickstart-camel-amq" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+				<feature name="HelloCamel">
+					<feature>camel-cxf</feature>
+					<feature>camel-jetty</feature>
+				</feature>
+			</features>
+
+
+	compile and deploy:
+		1) compile and package bundle
+			mvn clean package -Dmaven.test.skip=true
+		2) deploy features.xml to fuse
+			cp features.xml $JBOSS_FUSE/deploy/
+		3) deploy to fuse
+			cp sample03-camel-cxf-*.jar $JBOSS_FUSE/deploy/
+	
+	testing:
+		1) http://localhost:9001/rest/sayHelloTo/userName
+		2) http://localhost:9000/fuse/rest/helloworld/sayHelloTo/userName
+		3) access those urls should return the same result
+
